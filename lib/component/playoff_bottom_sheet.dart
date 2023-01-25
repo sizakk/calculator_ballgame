@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ballgame/constant/winNums.dart';
 import 'package:flutter/material.dart';
-
 import 'package:ballgame/component/custom_text_field.dart';
 import 'package:ballgame/constant/color.dart';
 
@@ -19,6 +19,8 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
   int? winsNums;
   int? runScores;
   int? earendRunScores;
+  int? selectedHuddleId = 0;
+  int? selectedHuddleNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,21 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const _WinsHuddle(),
+                      _WinsHuddle(
+                        huddle: playoffHuddle.keys.toList(),
+                        selectedHuddle: selectedHuddleId!,
+                        huddleSetter: (int id) {
+                          setState(() {
+                            selectedHuddleId = id;
+                          });
+                        },
+                        getHuddle: (String selectedHuddleYear) {
+                          setState(() {
+                            selectedHuddleNumber = selectedHuddleYear as int?;
+                            // playoffHuddle[getHuddle]!.toInt();
+                          });
+                        },
+                      ),
                       const SizedBox(
                         height: 8,
                       ),
@@ -106,6 +122,7 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
       print('onWinsNums : $winsNums');
       print('runScores : $runScores');
       print('earendRunScores : $earendRunScores');
+      print('selectedHuddleNumber : $selectedHuddleNumber');
     } else {}
   }
 }
@@ -199,28 +216,64 @@ class _OnTeamName extends StatelessWidget {
   }
 }
 
+typedef HuddleSetter = void Function(int id);
+typedef Huddle = void Function(String selectedHuddleYear);
+
 class _WinsHuddle extends StatelessWidget {
-  const _WinsHuddle();
+  final List<String> huddle;
+  final int selectedHuddle;
+  final HuddleSetter huddleSetter;
+  final Huddle getHuddle;
+
+  const _WinsHuddle({
+    Key? key,
+    required this.huddle,
+    required this.selectedHuddle,
+    required this.huddleSetter,
+    required this.getHuddle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       spacing: 8,
-      children: [
-        renderNums('전년 기준'),
-        renderNums('3년 평균'),
-        renderNums('5년 평균'),
-      ],
+      children: huddle
+          .map(
+            (e) => GestureDetector(
+              onTap: () {
+                huddleSetter(playoffHuddle.keys.toList().indexOf(e));
+                getHuddle(playoffHuddle.values
+                    .toList()[playoffHuddle.keys.toList().indexOf(e)]
+                    .toString());
+              },
+              child: renderNums(
+                e,
+                selectedHuddle == playoffHuddle.keys.toList().indexOf(e),
+              ),
+            ),
+          )
+          .toList(),
+      // [
+      //   renderNums('전년 기준'),
+      //   renderNums('3년 평균'),
+      //   renderNums('5년 평균'),
+      // ],
     );
   }
 
-  Widget renderNums(String year) {
+  Widget renderNums(String year, bool isSelected) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         color: BACK_COLOR,
+        border: isSelected
+            ? Border.all(
+                color: PRIMARY_COLOR,
+                width: 2,
+              )
+            : null,
       ),
-      width: 60,
+      width: 70,
       height: 24,
       child: Text(
         year,
