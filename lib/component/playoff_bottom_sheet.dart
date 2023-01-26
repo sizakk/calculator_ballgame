@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:ballgame/constant/winNums.dart';
+import 'package:ballgame/screen/result_playoffs.dart';
 import 'package:flutter/material.dart';
 import 'package:ballgame/component/custom_text_field.dart';
 import 'package:ballgame/constant/color.dart';
@@ -19,8 +19,6 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
   int? winsNums;
   int? runScores;
   int? earendRunScores;
-  int? selectedHuddleId = 0;
-  int? selectedHuddleNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -77,21 +75,6 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
                       const SizedBox(
                         height: 8,
                       ),
-                      _WinsHuddle(
-                        huddle: playoffHuddle.keys.toList(),
-                        selectedHuddle: selectedHuddleId!,
-                        huddleSetter: (int id) {
-                          setState(() {
-                            selectedHuddleId = id;
-                          });
-                        },
-                        getHuddle: (String selectedHuddleYear) {
-                          setState(() {
-                            selectedHuddleNumber = selectedHuddleYear as int?;
-                            // playoffHuddle[getHuddle]!.toInt();
-                          });
-                        },
-                      ),
                       const SizedBox(
                         height: 8,
                       ),
@@ -116,13 +99,19 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
-      print('--------------');
-      print('onTeam : $teamName');
-      print('onGamesNums : $gamesNums');
-      print('onWinsNums : $winsNums');
-      print('runScores : $runScores');
-      print('earendRunScores : $earendRunScores');
-      print('selectedHuddleNumber : $selectedHuddleNumber');
+      Navigator.of(context).pop();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ResultPlayoffs(
+                  teamName: teamName.toString(),
+                  gamesNums: int.parse(gamesNums.toString()),
+                  winsNums: int.parse(winsNums.toString()),
+                  runScores: int.parse(runScores.toString()),
+                  earendRunScores: int.parse(earendRunScores.toString()),
+                )),
+      );
     } else {}
   }
 }
@@ -212,78 +201,6 @@ class _OnTeamName extends StatelessWidget {
       label: '팀명 (미기재 시 랜덤)',
       isNums: false,
       onSaved: onTeam,
-    );
-  }
-}
-
-typedef HuddleSetter = void Function(int id);
-typedef Huddle = void Function(String selectedHuddleYear);
-
-class _WinsHuddle extends StatelessWidget {
-  final List<String> huddle;
-  final int selectedHuddle;
-  final HuddleSetter huddleSetter;
-  final Huddle getHuddle;
-
-  const _WinsHuddle({
-    Key? key,
-    required this.huddle,
-    required this.selectedHuddle,
-    required this.huddleSetter,
-    required this.getHuddle,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      children: huddle
-          .map(
-            (e) => GestureDetector(
-              onTap: () {
-                huddleSetter(playoffHuddle.keys.toList().indexOf(e));
-                getHuddle(playoffHuddle.values
-                    .toList()[playoffHuddle.keys.toList().indexOf(e)]
-                    .toString());
-              },
-              child: renderNums(
-                e,
-                selectedHuddle == playoffHuddle.keys.toList().indexOf(e),
-              ),
-            ),
-          )
-          .toList(),
-      // [
-      //   renderNums('전년 기준'),
-      //   renderNums('3년 평균'),
-      //   renderNums('5년 평균'),
-      // ],
-    );
-  }
-
-  Widget renderNums(String year, bool isSelected) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        color: BACK_COLOR,
-        border: isSelected
-            ? Border.all(
-                color: PRIMARY_COLOR,
-                width: 2,
-              )
-            : null,
-      ),
-      width: 70,
-      height: 24,
-      child: Text(
-        year,
-        style: const TextStyle(
-          color: TEXT_COLOR,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
-        textAlign: TextAlign.center,
-      ),
     );
   }
 }

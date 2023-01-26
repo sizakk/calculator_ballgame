@@ -48,6 +48,7 @@ class CustomTextField extends StatelessWidget {
 
         return null;
       },
+      // maxLength: 12,
       cursorColor: Colors.grey,
       maxLines: 1,
       keyboardType: isNums ? TextInputType.number : TextInputType.multiline,
@@ -55,7 +56,10 @@ class CustomTextField extends StatelessWidget {
           ? [
               FilteringTextInputFormatter.digitsOnly,
             ]
-          : [],
+          : [
+              FilteringTextInputFormatter(RegExp('[a-z A-Z ㄱ-ㅎ|가-힣|·|：]'),
+                  allow: true),
+            ],
       decoration: InputDecoration(
         border: InputBorder.none,
         filled: true,
