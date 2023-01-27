@@ -42,46 +42,48 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
                 ),
                 child: Form(
                   key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _OnTeamName(
-                        onTeam: (String? val) {
-                          teamName = val;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      _OnGames(
-                        onGamesNums: (String? val) {
-                          gamesNums = int.parse(val!);
-                        },
-                        onWinsNums: (String? val) {
-                          winsNums = int.parse(val!);
-                        },
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      _OnScores(
-                        runNums: (String? val) {
-                          runScores = int.parse(val!);
-                        },
-                        earendRunsNums: (String? val) {
-                          earendRunScores = int.parse(val!);
-                        },
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      _SaveButton(
-                        onPressed: onSavePressed,
-                      ),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _OnTeamName(
+                          onTeam: (String? val) {
+                            teamName = val;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        _OnGames(
+                          onGamesNums: (String? val) {
+                            gamesNums = int.parse(val!);
+                          },
+                          onWinsNums: (String? val) {
+                            winsNums = int.parse(val!);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        _OnScores(
+                          runNums: (String? val) {
+                            runScores = int.parse(val!);
+                          },
+                          earendRunsNums: (String? val) {
+                            earendRunScores = int.parse(val!);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        _SaveButton(
+                          onPressed: onSavePressed,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -129,11 +131,13 @@ class _OnGames extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: CustomTextField(
             label: '진행경기 수',
             isNums: true,
+            isGames: true,
             onSaved: onGamesNums,
           ),
         ),
@@ -144,6 +148,7 @@ class _OnGames extends StatelessWidget {
           child: CustomTextField(
             label: '현재 승 수',
             isNums: true,
+            isGames: true,
             onSaved: onWinsNums,
           ),
         ),
@@ -165,11 +170,13 @@ class _OnScores extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: CustomTextField(
             label: '누계 득점',
             isNums: true,
+            isGames: false,
             onSaved: runNums,
           ),
         ),
@@ -180,6 +187,7 @@ class _OnScores extends StatelessWidget {
           child: CustomTextField(
             label: '누계 실점',
             isNums: true,
+            isGames: false,
             onSaved: earendRunsNums,
           ),
         ),
@@ -200,6 +208,7 @@ class _OnTeamName extends StatelessWidget {
     return CustomTextField(
       label: '팀명 (미기재 시 랜덤)',
       isNums: false,
+      isGames: false,
       onSaved: onTeam,
     );
   }

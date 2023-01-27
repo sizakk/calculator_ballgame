@@ -13,13 +13,33 @@ class MainBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 60),
             Image.asset(
               'asset/img/logo.png',
               height: 200,
             ),
-            const Text('가을야구 확률'),
             const SizedBox(height: 20),
-            renderElevatedButton(context)
+            const Text(
+              '가을야구 확률 계산기',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 120),
+            SizedBox(
+              height: 100,
+              child: Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    renderElevatedButton(context),
+                    const SizedBox(width: 20),
+                    renderElevatedButton(context)
+                  ],
+                ),
+              ),
+            )
           ],
         ));
   }
