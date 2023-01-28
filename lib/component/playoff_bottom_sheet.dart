@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ballgame/constant/team_names.dart';
 import 'package:ballgame/screen/result_playoffs.dart';
 import 'package:flutter/material.dart';
 import 'package:ballgame/component/custom_text_field.dart';
 import 'package:ballgame/constant/color.dart';
+import 'dart:math';
 
 class PlayoffBottomSheet extends StatefulWidget {
   const PlayoffBottomSheet({super.key});
@@ -48,7 +50,12 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
                       children: [
                         _OnTeamName(
                           onTeam: (String? val) {
-                            teamName = val;
+                            if (val == '') {
+                              teamName = randomNames[
+                                  Random().nextInt(randomNames.length)];
+                            } else {
+                              teamName = val;
+                            }
                           },
                         ),
                         const SizedBox(
@@ -138,6 +145,7 @@ class _OnGames extends StatelessWidget {
             label: '진행경기 수',
             isNums: true,
             isGames: true,
+            isTeamName: false,
             onSaved: onGamesNums,
           ),
         ),
@@ -149,6 +157,7 @@ class _OnGames extends StatelessWidget {
             label: '현재 승 수',
             isNums: true,
             isGames: true,
+            isTeamName: false,
             onSaved: onWinsNums,
           ),
         ),
@@ -177,6 +186,7 @@ class _OnScores extends StatelessWidget {
             label: '누계 득점',
             isNums: true,
             isGames: false,
+            isTeamName: false,
             onSaved: runNums,
           ),
         ),
@@ -188,6 +198,7 @@ class _OnScores extends StatelessWidget {
             label: '누계 실점',
             isNums: true,
             isGames: false,
+            isTeamName: false,
             onSaved: earendRunsNums,
           ),
         ),
@@ -209,6 +220,7 @@ class _OnTeamName extends StatelessWidget {
       label: '팀명 (미기재 시 랜덤)',
       isNums: false,
       isGames: false,
+      isTeamName: true,
       onSaved: onTeam,
     );
   }

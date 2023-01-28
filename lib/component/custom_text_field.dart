@@ -7,10 +7,12 @@ class CustomTextField extends StatelessWidget {
   // true - 경기수, 득실점 /  false - 팀명
   final bool isNums;
   final bool isGames;
+  final bool isTeamName;
   final FormFieldSetter<String> onSaved;
 
   const CustomTextField({
     super.key,
+    required this.isTeamName,
     required this.isNums,
     required this.isGames,
     required this.label,
@@ -37,40 +39,44 @@ class CustomTextField extends StatelessWidget {
   Widget renderTextField() {
     return TextFormField(
       onSaved: onSaved,
-      validator: isGames
+      validator: isTeamName
           ? (String? val) {
-              if (val == null || val.isEmpty) {
-                return '값을 입력하세요';
-              }
-
-              if (isNums) {
-                int nums = int.parse(val);
-
-                if (nums < 0) {
-                  return '0보다 커야합니다';
-                }
-                if (nums > 143) {
-                  return '총 경기수보다 클 수 없습니다';
-                }
-              } else {}
-
               return null;
             }
-          : (String? val) {
-              if (val == null || val.isEmpty) {
-                return '값을 입력하세요';
-              }
+          : isGames
+              ? (String? val) {
+                  if (val == null || val.isEmpty) {
+                    return '값을 입력하세요';
+                  }
 
-              if (isNums) {
-                int nums = int.parse(val);
+                  if (isNums) {
+                    int nums = int.parse(val);
 
-                if (nums < 0) {
-                  return '0보다 커야합니다';
+                    if (nums < 0) {
+                      return '0보다 커야합니다';
+                    }
+                    if (nums > 143) {
+                      return '총 경기수보다 클 수 없습니다';
+                    }
+                  } else {}
+
+                  return null;
                 }
-              } else {}
+              : (String? val) {
+                  if (val == null || val.isEmpty) {
+                    return '값을 입력하세요';
+                  }
 
-              return null;
-            },
+                  if (isNums) {
+                    int nums = int.parse(val);
+
+                    if (nums < 0) {
+                      return '0보다 커야합니다';
+                    }
+                  } else {}
+
+                  return null;
+                },
       // maxLength: 12,
       cursorColor: Colors.grey,
       maxLines: 1,

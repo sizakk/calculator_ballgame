@@ -30,10 +30,11 @@ class ResultPlayoffs extends StatelessWidget {
     );
 
     int trials = allGamesKBO - gamesNums;
-    double playoffsRate = 100 -
-        (100 *
-            (BinomialDistribution(trials, expP)
-                .cumulativeProbability(71 - winsNums - 1)));
+    int playoffsRate = (100 *
+            (1 -
+                (BinomialDistribution(trials, expP)
+                    .cumulativeProbability(71 - winsNums - 1))))
+        .floor();
 
     const textStyle = TextStyle(
       fontWeight: FontWeight.w600,
@@ -71,34 +72,87 @@ class ResultNoError extends StatelessWidget {
   final String teamName;
   final TextStyle textStyle;
   final int trials;
-  final double playoffsRate;
+  final int playoffsRate;
   final double expP;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          teamName,
-          style: textStyle,
-        ),
-        Text(
-          '남은 $trials 경기 기대승률 ${expP * 100}%',
-          style: textStyle,
-        ),
-        Text(
-          '플레이오프 진출 확률',
-          style: textStyle,
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          playoffsRate.toString(),
-          style: textStyle,
-        ),
-        renderBakcButton(context)
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            teamName,
+            style: const TextStyle(
+              color: PRIMARY_COLOR,
+              fontSize: 32,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            '플레이오프 진출 확률',
+            style: textStyle,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            playoffsRate.toString(),
+          ),
+          const SizedBox(
+            height: 26,
+          ),
+          Text(
+            '남은 $trials 경기\n기대승률 ${expP * 100}%',
+            style: textStyle,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(
+            height: 36,
+          ),
+          renderBakcButton(context)
+        ],
+      ),
+    );
+  }
+}
+
+class GetError extends StatelessWidget {
+  const GetError({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            '계산 실패',
+            style: TextStyle(
+              color: RED_COLOR,
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          const Text(
+            ': 경기 수 보다 승수가 많습니다',
+            style: TextStyle(
+              color: TEXT_COLOR,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(
+            height: 60,
+          ),
+          renderBakcButton(context),
+        ],
+      ),
     );
   }
 }
@@ -111,15 +165,18 @@ ElevatedButton renderBakcButton(BuildContext context) {
     onPressed: () {
       Navigator.of(context).pop();
     },
-    child: const Text('돌아가기'),
+    child: SizedBox(
+      width: 160,
+      height: 40,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            '다시 계산하기',
+            style: TextStyle(fontSize: 18),
+          ),
+        ],
+      ),
+    ),
   );
-}
-
-class GetError extends StatelessWidget {
-  const GetError({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('Error');
-  }
 }
