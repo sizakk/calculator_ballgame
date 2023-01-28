@@ -15,9 +15,9 @@ class MainBody extends StatelessWidget {
           children: [
             const SizedBox(height: 40),
             const Text(
-              '#플레이오프 계산기',
+              '플레이오프 계산기',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 32,
                 color: RED_COLOR,
                 fontWeight: FontWeight.w700,
               ),
@@ -38,7 +38,7 @@ class MainBody extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              '득점수와 실점수는 \n KBO 기록실에서 확인하세요',
+              '득점수와 실점수는\nKBO 기록실의 팀기록에서 확인하세요',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.blueGrey[700],
@@ -89,7 +89,7 @@ ElevatedButton renderElevatedButton(BuildContext context) {
           Icon(Icons.sports_baseball),
           SizedBox(width: 8),
           Text(
-            '계산해보기!',
+            '계산해보기',
             style: TextStyle(fontSize: 25),
           ),
         ],

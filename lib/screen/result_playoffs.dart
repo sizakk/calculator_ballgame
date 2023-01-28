@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ballgame/component/calculates.dart';
+import 'package:ballgame/component/number_row.dart';
 import 'package:ballgame/constant/color.dart';
 import 'package:data/data.dart';
 import 'package:flutter/material.dart';
@@ -83,27 +84,57 @@ class ResultNoError extends StatelessWidget {
         children: [
           Text(
             teamName,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: PRIMARY_COLOR,
-              fontSize: 32,
+              fontSize: 42,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(
-            height: 8,
+            height: 16,
           ),
           Text(
             '플레이오프 진출 확률',
-            style: textStyle,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            playoffsRate.toString(),
+            style: textStyle.copyWith(
+              fontSize: 18,
+            ),
           ),
           const SizedBox(
             height: 26,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(
+                width: 14,
+              ),
+              NumberRow(
+                number: playoffsRate == 100
+                    ? 99
+                    : playoffsRate == 0
+                        ? 1
+                        : playoffsRate,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              const Text(
+                '%',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: PRIMARY_COLOR,
+                ),
+              )
+            ],
+          ),
+          // Text(
+          //   playoffsRate.toString(),
+          // ),
+          const SizedBox(
+            height: 46,
           ),
           Text(
             '남은 $trials 경기\n기대승률 ${expP * 100}%',

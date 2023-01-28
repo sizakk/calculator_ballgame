@@ -2,6 +2,7 @@ double expPythagorean({
   required int runs,
   required int earedRuns,
 }) {
-  return double.parse(
-      (runs * runs / (runs * runs + earedRuns * earedRuns)).toStringAsFixed(3));
+  return double.parse((runs * runs / (runs * runs + earedRuns * earedRuns))
+      // .floor()
+      .toStringAsFixed(3));
 }
