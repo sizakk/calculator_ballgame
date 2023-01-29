@@ -45,16 +45,64 @@ class ResultPlayoffs extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: BACK_COLOR,
-        body: winsNums <= gamesNums
-            ? ResultNoError(
-                teamName: teamName,
-                textStyle: textStyle,
-                trials: trials,
-                expP: expP,
-                playoffsRate: playoffsRate,
-              )
-            : const GetError(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Flexible(
+              flex: 1,
+              child: Container(
+                color: BACK_COLOR,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 60.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: const [
+                      Text(
+                        '# 플레이오프 계산기',
+                        style: TextStyle(
+                          color: RED_COLOR,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        '# 가을야구 확률',
+                        style: TextStyle(
+                          color: RED_COLOR,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Flexible(
+              flex: 4,
+              child: winsNums <= gamesNums
+                  ? ResultNoError(
+                      teamName: teamName,
+                      textStyle: textStyle,
+                      trials: trials,
+                      expP: expP,
+                      playoffsRate: playoffsRate,
+                    )
+                  : const GetError(),
+            ),
+            Flexible(
+              flex: 1,
+              child: Container(
+                child: renderBakcButton(context),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -80,8 +128,11 @@ class ResultNoError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(
+            height: 8,
+          ),
           Text(
             teamName,
             textAlign: TextAlign.center,
@@ -95,13 +146,14 @@ class ResultNoError extends StatelessWidget {
             height: 16,
           ),
           Text(
-            '플레이오프 진출 확률',
+            textAlign: TextAlign.center,
+            '남은 $trials 경기 플레이오프 진출 확률',
             style: textStyle.copyWith(
-              fontSize: 18,
+              fontSize: 15,
             ),
           ),
           const SizedBox(
-            height: 26,
+            height: 32,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -137,14 +189,10 @@ class ResultNoError extends StatelessWidget {
             height: 46,
           ),
           Text(
-            '남은 $trials 경기\n기대승률 ${expP * 100}%',
+            '기대승률 ${double.parse(expP.toStringAsFixed(3)) * 100}%',
             style: textStyle,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(
-            height: 36,
-          ),
-          renderBakcButton(context)
         ],
       ),
     );
@@ -159,8 +207,8 @@ class GetError extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
+        children: const [
+          Text(
             '계산 실패',
             style: TextStyle(
               color: RED_COLOR,
@@ -168,20 +216,16 @@ class GetError extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(
+          SizedBox(
             height: 16,
           ),
-          const Text(
+          Text(
             ': 경기 수 보다 승수가 많습니다',
             style: TextStyle(
               color: TEXT_COLOR,
               fontSize: 16,
             ),
           ),
-          const SizedBox(
-            height: 60,
-          ),
-          renderBakcButton(context),
         ],
       ),
     );
@@ -191,7 +235,7 @@ class GetError extends StatelessWidget {
 ElevatedButton renderBakcButton(BuildContext context) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
-      backgroundColor: BLUE_COLOR,
+      backgroundColor: TEXT_COLOR,
     ),
     onPressed: () {
       Navigator.of(context).pop();

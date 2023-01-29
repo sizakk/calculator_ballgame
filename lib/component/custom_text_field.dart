@@ -52,11 +52,11 @@ class CustomTextField extends StatelessWidget {
                   if (isNums) {
                     int nums = int.parse(val);
 
-                    if (nums < 0) {
-                      return '0보다 커야합니다';
+                    if (nums <= 0) {
+                      return '1보다 커야합니다';
                     }
                     if (nums > 143) {
-                      return '총 경기수보다 클 수 없습니다';
+                      return '총 경기수보다 큽니다';
                     }
                   } else {}
 

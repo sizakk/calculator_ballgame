@@ -241,7 +241,7 @@ class _SaveButton extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: BLUE_COLOR,
+              backgroundColor: TEXT_COLOR,
             ),
             onPressed: onPressed,
             child: const Text(

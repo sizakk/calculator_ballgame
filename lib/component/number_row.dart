@@ -19,7 +19,7 @@ class NumberRow extends StatelessWidget {
             (e) => Image.asset(
               'asset/img/$e.png',
               width: 60.0,
-              height: 80.0,
+              height: 120.0,
             ),
           )
           .toList(),
