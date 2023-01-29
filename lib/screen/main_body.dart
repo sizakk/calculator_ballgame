@@ -42,7 +42,7 @@ class MainBody extends StatelessWidget {
                 'asset/img/main_logo.png',
                 height: 220,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 36),
               const Text(
                 '득점수와 실점수는 KBO 기록실의 팀기록에서 확인하세요',
                 style: TextStyle(
@@ -51,7 +51,7 @@ class MainBody extends StatelessWidget {
                   color: TEXT_COLOR,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 6),
               Text(
                 '득점 : 팀기록 타자 지표 중 R / 실점 : 팀기록 투수 지표 중 R',
                 style: TextStyle(
