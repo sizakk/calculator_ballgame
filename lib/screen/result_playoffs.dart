@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ballgame/component/back_button.dart';
 import 'package:ballgame/component/calculates.dart';
 import 'package:ballgame/component/number_row.dart';
 import 'package:ballgame/constant/color.dart';
@@ -98,7 +99,7 @@ class ResultPlayoffs extends StatelessWidget {
             Flexible(
               flex: 1,
               child: Container(
-                child: renderBakcButton(context),
+                child: renderBackButton(context),
               ),
             ),
           ],
@@ -165,7 +166,7 @@ class ResultNoError extends StatelessWidget {
               NumberRow(
                 number: playoffsRate == 100
                     ? 99
-                    : playoffsRate == 0
+                    : playoffsRate <= 0.1
                         ? 1
                         : playoffsRate,
               ),
@@ -230,28 +231,4 @@ class GetError extends StatelessWidget {
       ),
     );
   }
-}
-
-ElevatedButton renderBakcButton(BuildContext context) {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: TEXT_COLOR,
-    ),
-    onPressed: () {
-      Navigator.of(context).pop();
-    },
-    child: SizedBox(
-      width: 160,
-      height: 40,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text(
-            '다시 계산하기',
-            style: TextStyle(fontSize: 18),
-          ),
-        ],
-      ),
-    ),
-  );
 }

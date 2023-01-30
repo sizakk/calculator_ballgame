@@ -1,5 +1,6 @@
 import 'package:ballgame/component/playoff_bottom_sheet.dart';
 import 'package:ballgame/constant/color.dart';
+import 'package:ballgame/screen/expected_rate.dart';
 import 'package:flutter/material.dart';
 
 class MainBody extends StatelessWidget {
@@ -40,13 +41,13 @@ class MainBody extends StatelessWidget {
               const SizedBox(height: 20),
               Image.asset(
                 'asset/img/main_logo.png',
-                height: 220,
+                height: 200,
               ),
               const SizedBox(height: 36),
               const Text(
                 '득점수와 실점수는 KBO 기록실의 팀기록에서 확인하세요',
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: FontWeight.w600,
                   color: TEXT_COLOR,
                 ),
@@ -60,19 +61,20 @@ class MainBody extends StatelessWidget {
                 ),
                 textAlign: TextAlign.start,
               ),
-              SizedBox(
-                height: 120,
-                child: Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      renderElevatedButton(context),
-                      // const SizedBox(width: 20),
-                      // renderElevatedButton(context)
-                    ],
+              const SizedBox(
+                height: 30,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  renderElevatedButton(context),
+                  const SizedBox(
+                    height: 12,
                   ),
-                ),
+                  renderElevatedButton_2(context),
+                  // const SizedBox(width: 20),
+                  // renderElevatedButton(context)
+                ],
               )
             ],
           )),
@@ -84,7 +86,7 @@ ElevatedButton renderElevatedButton(BuildContext context) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: TEXT_COLOR,
-      elevation: 4,
+      elevation: 2,
     ),
     onPressed: () {
       showModalBottomSheet(
@@ -105,8 +107,41 @@ ElevatedButton renderElevatedButton(BuildContext context) {
           Icon(Icons.sports_baseball),
           SizedBox(width: 16),
           Text(
-            '계산해보기',
-            style: TextStyle(fontSize: 25),
+            '플레이오프 확률',
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+ElevatedButton renderElevatedButton_2(BuildContext context) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.grey[800],
+      elevation: 2,
+    ),
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ExpectedRate(),
+        ),
+      );
+    },
+    child: SizedBox(
+      width: 200,
+      height: 50,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Icon(Icons.sports_baseball_outlined),
+          SizedBox(width: 16),
+          Text(
+            '팀 별 기대 승률',
+            style: TextStyle(fontSize: 20),
           ),
         ],
       ),

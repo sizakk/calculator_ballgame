@@ -18,8 +18,8 @@ class NumberRow extends StatelessWidget {
           .map(
             (e) => Image.asset(
               'asset/img/$e.png',
-              width: 60.0,
-              height: 120.0,
+              width: 70.0,
+              height: 140.0,
             ),
           )
           .toList(),
