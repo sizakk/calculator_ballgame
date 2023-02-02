@@ -64,17 +64,21 @@ class MainBody extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  renderElevatedButton(context),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  renderElevatedButton_2(context),
-                  // const SizedBox(width: 20),
-                  // renderElevatedButton(context)
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 55),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    renderElevatedButton(context),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    renderElevatedButton_2(context),
+                    // const SizedBox(width: 20),
+                    // renderElevatedButton(context)
+                  ],
+                ),
               )
             ],
           )),
