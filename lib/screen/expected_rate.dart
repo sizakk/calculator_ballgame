@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ballgame/component/back_button.dart';
 import 'package:flutter/material.dart';
 
-import 'package:ballgame/component/back_button.dart';
 import 'package:ballgame/component/custom_text_field.dart';
 import 'package:ballgame/constant/color.dart';
 
@@ -33,6 +33,7 @@ class _ExpectedRateState extends State<ExpectedRate> {
                   value: maxNumber,
                   min: 4,
                   max: 10,
+                  divisions: 6,
                   onChanged: (double val) {
                     setState(() {
                       maxNumber = val;
@@ -41,15 +42,30 @@ class _ExpectedRateState extends State<ExpectedRate> {
                 ),
                 Text(maxNumber.toInt().toString()),
                 Expanded(
-                  child: Column(
-                    children: [
-                      _Teams9(runNums: (String? val) {
-                        runScores = int.parse(val!);
-                      }, earendRunsNums: (String? val) {
-                        runScores = int.parse(val!);
+                  child: ListView.builder(
+                      itemCount: maxNumber.toInt(),
+                      itemBuilder: (context, index) {
+                        return Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '${index + 1}위팀 득점/실점',
+                              ),
+                            ),
+                            Expanded(
+                              child: _TeamBoards(
+                                maxNumber: maxNumber,
+                                runNums: (String? val) {
+                                  runScores = int.parse(val!);
+                                },
+                                earendRunsNums: (String? val) {
+                                  runScores = int.parse(val!);
+                                },
+                              ),
+                            ),
+                          ],
+                        );
                       }),
-                    ],
-                  ),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -74,16 +90,23 @@ class _ExpectedRateState extends State<ExpectedRate> {
   }
 }
 
-class _Teams9 extends StatelessWidget {
+class _TeamBoards extends StatefulWidget {
   final FormFieldSetter<String> runNums;
   final FormFieldSetter<String> earendRunsNums;
+  final double maxNumber;
 
-  const _Teams9({
+  const _TeamBoards({
     Key? key,
     required this.runNums,
     required this.earendRunsNums,
+    required this.maxNumber,
   }) : super(key: key);
 
+  @override
+  State<_TeamBoards> createState() => _TeamBoardsState();
+}
+
+class _TeamBoardsState extends State<_TeamBoards> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -93,11 +116,11 @@ class _Teams9 extends StatelessWidget {
           children: [
             Expanded(
               child: CustomTextField(
-                label: '1위팀 누계득점',
+                label: '',
                 isNums: true,
                 isGames: false,
                 isTeamName: false,
-                onSaved: runNums,
+                onSaved: widget.runNums,
               ),
             ),
             const SizedBox(
@@ -105,37 +128,11 @@ class _Teams9 extends StatelessWidget {
             ),
             Expanded(
               child: CustomTextField(
-                label: '1위팀 누계실점',
+                label: '',
                 isNums: true,
                 isGames: false,
                 isTeamName: false,
-                onSaved: earendRunsNums,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: CustomTextField(
-                label: '2위팀 누계득점',
-                isNums: true,
-                isGames: false,
-                isTeamName: false,
-                onSaved: runNums,
-              ),
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-            Expanded(
-              child: CustomTextField(
-                label: '2위팀 누계실점',
-                isNums: true,
-                isGames: false,
-                isTeamName: false,
-                onSaved: earendRunsNums,
+                onSaved: widget.earendRunsNums,
               ),
             ),
           ],
