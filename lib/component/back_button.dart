@@ -17,7 +17,7 @@ ElevatedButton renderBackButton(BuildContext context) {
         children: const [
           Text(
             '첫 화면으로',
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
           ),
         ],
       ),

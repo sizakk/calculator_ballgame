@@ -3,6 +3,7 @@ import 'package:ballgame/component/back_button.dart';
 import 'package:ballgame/component/calculates.dart';
 import 'package:ballgame/component/number_row.dart';
 import 'package:ballgame/constant/color.dart';
+import 'package:ballgame/constant/win_nums.dart';
 import 'package:data/data.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,8 @@ class ResultPlayoffs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int allGamesKBO = 144;
+    // int allGamesKBO = 144;
+    List leagueSelected = playoffHuddle['KBO']!;
 
     double expP = expPythagorean(
       runs: runScores,
@@ -34,8 +36,8 @@ class ResultPlayoffs extends StatelessWidget {
     int trials = allGamesKBO - gamesNums;
     int playoffsRate = (100 *
             (1 -
-                (BinomialDistribution(trials, expP)
-                    .cumulativeProbability(71 - winsNums - 1))))
+                (BinomialDistribution(trials, expP).cumulativeProbability(
+                    leagueSelected.elementAt(0) - winsNums - 1))))
         .floor();
 
     const textStyle = TextStyle(

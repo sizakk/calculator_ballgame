@@ -1,6 +1,7 @@
 import 'package:ballgame/component/playoff_bottom_sheet.dart';
 import 'package:ballgame/constant/color.dart';
-import 'package:ballgame/screen/expected_rate.dart';
+import 'package:ballgame/screen/exp_rate_input.dart';
+// import 'package:ballgame/screen/expected_rate.dart';
 import 'package:flutter/material.dart';
 
 class MainBody extends StatelessWidget {
@@ -123,14 +124,14 @@ ElevatedButton renderElevatedButton(BuildContext context) {
 ElevatedButton renderElevatedButton_2(BuildContext context) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: TEXT_COLOR,
       elevation: 2,
     ),
     onPressed: () {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const ExpectedRate(),
+          builder: (context) => const ExpRateInput(),
         ),
       );
     },
