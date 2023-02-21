@@ -11,12 +11,12 @@ ElevatedButton renderBackButton(BuildContext context) {
     },
     child: SizedBox(
       width: 160,
-      height: 40,
+      height: 36,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           Text(
-            '첫 화면으로',
+            '돌아가기',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
           ),
         ],

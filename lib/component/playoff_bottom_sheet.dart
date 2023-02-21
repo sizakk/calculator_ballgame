@@ -113,13 +113,14 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ResultPlayoffs(
-                  teamName: teamName.toString(),
-                  gamesNums: int.parse(gamesNums.toString()),
-                  winsNums: int.parse(winsNums.toString()),
-                  runScores: int.parse(runScores.toString()),
-                  earendRunScores: int.parse(earendRunScores.toString()),
-                )),
+          builder: (context) => ResultPlayoffs(
+            teamName: teamName.toString(),
+            gamesNums: int.parse(gamesNums.toString()),
+            winsNums: int.parse(winsNums.toString()),
+            runScores: int.parse(runScores.toString()),
+            earendRunScores: int.parse(earendRunScores.toString()),
+          ),
+        ),
       );
     } else {}
   }
