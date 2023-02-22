@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ballgame/component/calculates.dart';
 import 'package:ballgame/component/exp_rate_card.dart';
 import 'package:ballgame/constant/color.dart';
 import 'package:ballgame/screen/home_screen.dart';
@@ -52,14 +53,65 @@ class ExpResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<double> rankList = [
+      expPythagorean(
+        runs: runScores_1,
+        earedRuns: eRunScores_1,
+      ),
+      expPythagorean(
+        runs: runScores_2,
+        earedRuns: eRunScores_2,
+      ),
+      expPythagorean(
+        runs: runScores_3,
+        earedRuns: eRunScores_3,
+      ),
+      expPythagorean(
+        runs: runScores_4,
+        earedRuns: eRunScores_4,
+      ),
+      expPythagorean(
+        runs: runScores_5,
+        earedRuns: eRunScores_5,
+      ),
+      expPythagorean(
+        runs: runScores_6,
+        earedRuns: eRunScores_6,
+      ),
+      expPythagorean(
+        runs: runScores_7,
+        earedRuns: eRunScores_7,
+      ),
+      expPythagorean(
+        runs: runScores_8,
+        earedRuns: eRunScores_8,
+      ),
+      expPythagorean(
+        runs: runScores_9,
+        earedRuns: eRunScores_9,
+      ),
+      expPythagorean(
+        runs: runScores_10,
+        earedRuns: eRunScores_10,
+      ),
+    ];
+
+    List<Map<String, dynamic>> nameMapList =
+        rankList.asMap().entries.map((entry) {
+      int rank = entry.key + 1; // add 1 to start ID from 1
+      double expected = entry.value;
+      return {'rank': rank, 'expected': expected};
+    }).toList();
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: BACK_COLOR,
       body: SafeArea(
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 60,
+                horizontal: 40,
               ),
               child: Container(
                 height: 100,
@@ -93,15 +145,38 @@ class ExpResult extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ExpRateCard(
-                  runScores: runScores_1,
-                  eRunScores: eRunScores_1,
-                  teamRank: 1,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
                 ),
-              ],
+                child: Container(
+                  color: RED_COLOR,
+                  height: 400,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView.separated(
+                          itemCount: 10,
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(
+                              height: 8.0,
+                            );
+                          },
+                          itemBuilder: (context, index) {
+                            int e = index + 1;
+                            return ExpRateCard(
+                              currentTeamRank: e,
+                              expRate: (rankList[index] * 1000).floor() / 10,
+                              expTeamRank: e,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
             const SizedBox(
               height: 16,
