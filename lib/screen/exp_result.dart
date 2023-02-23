@@ -96,12 +96,14 @@ class ExpResult extends StatelessWidget {
       ),
     ];
 
-    List<Map<String, dynamic>> nameMapList =
-        rankList.asMap().entries.map((entry) {
-      int rank = entry.key + 1; // add 1 to start ID from 1
-      double expected = entry.value;
-      return {'rank': rank, 'expected': expected};
-    }).toList();
+    List<double> sortedList = List.from(rankList);
+    sortedList.sort();
+
+    Map<int, double> rankMap = {};
+
+    for (int i = 0; i < rankList.length; i++) {
+      rankMap[i] = rankList[i];
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -165,14 +167,19 @@ class ExpResult extends StatelessWidget {
                           },
                           itemBuilder: (context, index) {
                             int e = index + 1;
+                            int getRank = rankMap.keys.firstWhere(
+                              (k) => rankMap[k] == sortedList[index],
+                            );
+
                             return ExpRateCard(
                               currentTeamRank: e,
                               expRate: (rankList[index] * 1000).floor() / 10,
-                              expTeamRank: e,
+                              expTeamRank: 10 - (getRank),
                             );
                           },
                         ),
                       ),
+                      Text(sortedList.toString())
                     ],
                   ),
                 ),
