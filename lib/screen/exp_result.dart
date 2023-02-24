@@ -97,12 +97,12 @@ class ExpResult extends StatelessWidget {
     ];
 
     List<double> sortedList = List.from(rankList);
-    sortedList.sort();
+    sortedList.sort((a, b) => b.compareTo(a));
 
     Map<int, double> rankMap = {};
 
-    for (int i = 0; i < rankList.length; i++) {
-      rankMap[i] = rankList[i];
+    for (int i = 0; i < sortedList.length; i++) {
+      rankMap[i] = sortedList[i];
     }
 
     return Scaffold(
@@ -145,15 +145,15 @@ class ExpResult extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 16,
+              height: 66,
             ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
+                  horizontal: 60,
                 ),
                 child: Container(
-                  color: RED_COLOR,
+                  color: BACK_COLOR,
                   height: 400,
                   child: Column(
                     children: [
@@ -168,18 +168,27 @@ class ExpResult extends StatelessWidget {
                           itemBuilder: (context, index) {
                             int e = index + 1;
                             int getRank = rankMap.keys.firstWhere(
-                              (k) => rankMap[k] == sortedList[index],
+                              (k) => rankMap[k] == rankList[index],
                             );
 
                             return ExpRateCard(
                               currentTeamRank: e,
                               expRate: (rankList[index] * 1000).floor() / 10,
-                              expTeamRank: 10 - (getRank),
+                              expTeamRank: getRank + 1,
                             );
                           },
                         ),
                       ),
-                      Text(sortedList.toString())
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Text('계산일'),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Text(DateTime.now().toString()),
+                        ],
+                      )
                     ],
                   ),
                 ),

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ballgame/constant/color.dart';
 import 'package:flutter/material.dart';
 
 class ExpRateCard extends StatelessWidget {
@@ -47,22 +48,25 @@ class _TeamExpRate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // double teamRate = expPythagorean(
-    //   runs: runScores,
-    //   earedRuns: eRunScores,
-    // );
+    const textStyle = TextStyle(
+      fontWeight: FontWeight.w600,
+      color: TEXT_COLOR,
+      fontSize: 14,
+    );
 
     return Row(
       children: [
         Text(
           '$currentTeamRank위팀 기대승률',
+          style: textStyle,
         ),
         const SizedBox(
           width: 8,
         ),
-        Text(expRate.toString()
-            // ((teamRate * 1000).floor() / 10).toString(),
-            ),
+        Text(
+          expRate.toString(),
+          style: textStyle,
+        ),
         const SizedBox(
           width: 16,
         ),
@@ -81,16 +85,24 @@ class _ExpTeamRank extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const textStyle = TextStyle(
+      fontWeight: FontWeight.w700,
+      color: TEXT_COLOR,
+      fontSize: 16,
+    );
+
     return Row(
       children: [
         const Text(
           '기대 순위',
+          style: textStyle,
         ),
         const SizedBox(
           width: 8,
         ),
         Text(
           '$teamRank위',
+          style: textStyle,
         ),
       ],
     );
