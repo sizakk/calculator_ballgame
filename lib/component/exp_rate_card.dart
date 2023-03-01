@@ -3,8 +3,6 @@ import 'package:ballgame/constant/color.dart';
 import 'package:flutter/material.dart';
 
 class ExpRateCard extends StatelessWidget {
-  // final int runScores;
-  // final int eRunScores;
   final int currentTeamRank;
   final double expRate;
   final int expTeamRank;
@@ -19,10 +17,9 @@ class ExpRateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         _TeamExpRate(
-          // runScores: runScores,
-          // eRunScores: eRunScores,
           expRate: expRate,
           currentTeamRank: currentTeamRank,
         ),
@@ -50,14 +47,14 @@ class _TeamExpRate extends StatelessWidget {
   Widget build(BuildContext context) {
     const textStyle = TextStyle(
       fontWeight: FontWeight.w600,
-      color: TEXT_COLOR,
+      color: Colors.blueGrey,
       fontSize: 14,
     );
 
     return Row(
       children: [
         Text(
-          '$currentTeamRank위팀 기대승률',
+          '$currentTeamRank위팀 기대승률 :',
           style: textStyle,
         ),
         const SizedBox(
@@ -100,10 +97,7 @@ class _ExpTeamRank extends StatelessWidget {
         const SizedBox(
           width: 8,
         ),
-        Text(
-          '$teamRank위',
-          style: textStyle,
-        ),
+        Text('$teamRank위', style: textStyle),
       ],
     );
   }

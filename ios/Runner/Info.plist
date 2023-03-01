@@ -43,6 +43,8 @@
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
+		<key>GADApplicationIdentifier</key>
+        <string>ca-app-pub-5703087630687145~3226236430</string>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>

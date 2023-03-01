@@ -105,6 +105,10 @@ class ExpResult extends StatelessWidget {
       rankMap[i] = sortedList[i];
     }
 
+    String year = DateTime.now().year.toString();
+    String month = DateTime.now().month.toString();
+    String day = DateTime.now().day.toString();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: BACK_COLOR,
@@ -145,7 +149,7 @@ class ExpResult extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 66,
+              height: 36,
             ),
             Expanded(
               child: Padding(
@@ -162,7 +166,7 @@ class ExpResult extends StatelessWidget {
                           itemCount: 10,
                           separatorBuilder: (context, index) {
                             return const SizedBox(
-                              height: 8.0,
+                              height: 16.0,
                             );
                           },
                           itemBuilder: (context, index) {
@@ -182,11 +186,14 @@ class ExpResult extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const Text('계산일'),
-                          const SizedBox(
-                            width: 20,
+                          Text(
+                            '$year시즌   $month.$day',
+                            style: const TextStyle(
+                              color: Colors.black87,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                          Text(DateTime.now().toString()),
                         ],
                       )
                     ],

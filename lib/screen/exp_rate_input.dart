@@ -1,10 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:ballgame/screen/exp_result.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ballgame/component/back_button.dart';
 import 'package:ballgame/component/custom_text_field.dart';
 import 'package:ballgame/constant/color.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class ExpRateInput extends StatefulWidget {
   const ExpRateInput({super.key});
@@ -14,6 +17,58 @@ class ExpRateInput extends StatefulWidget {
 }
 
 class _ExpRateInputState extends State<ExpRateInput> {
+  final String iOSTestUnitId = 'ca-app-pub-3940256099942544/2934735716';
+  final String androidTestUnitId = 'ca-app-pub-3940256099942544/6300978111';
+
+  BannerAd? banner;
+  late final InterstitialAd interstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    banner = BannerAd(
+      listener: const BannerAdListener(),
+      size: AdSize.banner,
+      adUnitId: Platform.isIOS ? iOSTestUnitId : androidTestUnitId,
+      request: const AdRequest(),
+    )..load();
+
+    _loadInterstitialAd();
+  }
+
+  void _loadInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: 'ca-app-pub-3940256099942544/4411468910',
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          interstitialAd = ad;
+
+          _setFullScreenContentCallback(ad);
+        },
+        onAdFailedToLoad: (LoadAdError loadAdError) {
+          print('Fail to load');
+        },
+      ),
+    );
+  }
+
+  void _setFullScreenContentCallback(InterstitialAd ad) {
+    ad.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) => print('Load Ads'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        // ad.dispose();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {},
+      onAdImpression: (InterstitialAd ad) => print('Impression Occured'),
+    );
+  }
+
+  void _showInterstitialAd() {
+    interstitialAd.show();
+  }
+
   final GlobalKey<FormState> formKey = GlobalKey();
 
   int? runScores_1;
@@ -45,6 +100,12 @@ class _ExpRateInputState extends State<ExpRateInput> {
 
   int? runScores_10;
   int? eRunScores_10;
+  @override
+  void dispose() {
+    // 종료시 광고를 닫는다.
+    banner?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +119,9 @@ class _ExpRateInputState extends State<ExpRateInput> {
           backgroundColor: BACK_COLOR,
           body: Column(
             children: [
-              Container(
-                color: Colors.amber,
-                height: 80,
+              _ADs(banner: banner),
+              const SizedBox(
+                height: 16,
               ),
               Expanded(
                 child: Form(
@@ -172,6 +233,8 @@ class _ExpRateInputState extends State<ExpRateInput> {
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
+
+      _showInterstitialAd();
 
       Navigator.push(
         context,
@@ -633,6 +696,26 @@ class _SaveButton extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _ADs extends StatelessWidget {
+  const _ADs({
+    required this.banner,
+  });
+
+  final BannerAd? banner;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: banner == null
+          ? Container()
+          : AdWidget(
+              ad: banner!,
+            ),
     );
   }
 }

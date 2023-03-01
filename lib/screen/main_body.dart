@@ -1,11 +1,81 @@
+import 'dart:io';
+
 import 'package:ballgame/component/playoff_bottom_sheet.dart';
 import 'package:ballgame/constant/color.dart';
 import 'package:ballgame/screen/exp_rate_input.dart';
-// import 'package:ballgame/screen/expected_rate.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class MainBody extends StatelessWidget {
+class MainBody extends StatefulWidget {
   const MainBody({Key? key}) : super(key: key);
+
+  @override
+  State<MainBody> createState() => _MainBodyState();
+}
+
+class _MainBodyState extends State<MainBody> {
+  final String iOSTestUnitId = 'ca-app-pub-3940256099942544/2934735716';
+  final String androidTestUnitId = 'ca-app-pub-3940256099942544/6300978111';
+
+  late final InterstitialAd interstitialAd;
+
+  BannerAd? banner;
+
+  @override
+  void initState() {
+    super.initState();
+
+    banner = BannerAd(
+      listener: const BannerAdListener(),
+      size: AdSize.banner,
+      adUnitId: Platform.isIOS ? iOSTestUnitId : androidTestUnitId,
+      request: const AdRequest(),
+    )..load();
+
+    _loadInterstitialAd();
+  }
+
+  void _loadInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: 'ca-app-pub-3940256099942544/4411468910',
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          interstitialAd = ad;
+
+          _setFullScreenContentCallback(ad);
+        },
+        onAdFailedToLoad: (LoadAdError loadAdError) {
+          print('Fail to load');
+        },
+      ),
+    );
+  }
+
+  void _setFullScreenContentCallback(InterstitialAd ad) {
+    ad.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) => print('Load Ads'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        print('Dismiss Ads');
+        ad.dispose();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+        print('Error');
+      },
+      onAdImpression: (InterstitialAd ad) => print('Impression Occured'),
+    );
+  }
+
+  void _showInterstitialAd() {
+    interstitialAd.show();
+  }
+
+  @override
+  void dispose() {
+    // 종료시 광고를 닫는다.
+    banner?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,75 +84,138 @@ class MainBody extends StatelessWidget {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _ADs(
+              banner: banner,
+            ),
+            const _Header(),
+            const SizedBox(height: 66),
+            const _Body(),
+            const SizedBox(height: 36),
+            const _Footer(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ADs extends StatelessWidget {
+  const _ADs({
+    required this.banner,
+  });
+
+  final BannerAd? banner;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: banner == null
+          ? Container()
+          : AdWidget(
+              ad: banner!,
+            ),
+    );
+  }
+}
+
+class _Footer extends StatelessWidget {
+  const _Footer();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 55),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
-              const Text(
-                '플레이오프 계산기',
-                style: TextStyle(
-                  fontSize: 36,
-                  color: RED_COLOR,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              renderElevatedButton(context),
               const SizedBox(
-                height: 4,
+                height: 12,
               ),
-              const Text(
-                '우리팀은 가을야구를 할 수 있을까?',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: PRIMARY_COLOR,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Image.asset(
-                'asset/img/main_logo.png',
-                height: 200,
-              ),
-              const SizedBox(height: 36),
-              const Text(
-                '득점수와 실점수는 KBO 기록실의 팀기록에서 확인하세요',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: TEXT_COLOR,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                '득점 : 팀기록 타자 지표 중 R / 실점 : 팀기록 투수 지표 중 R',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.blueGrey[300],
-                ),
-                textAlign: TextAlign.start,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 55),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    renderElevatedButton(context),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    renderElevatedButton_2(context),
-                    // const SizedBox(width: 20),
-                    // renderElevatedButton(context)
-                  ],
-                ),
-              )
+              renderElevatedButton_2(context),
             ],
-          )),
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+      ],
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.asset(
+          'asset/img/main_logo.png',
+          height: 200,
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        const Text(
+          '득점수와 실점수는 KBO 기록실의 팀기록에서 확인하세요',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: TEXT_COLOR,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          '득점 : 팀기록 타자 지표 중 R / 실점 : 팀기록 투수 지표 중 R',
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.blueGrey[300],
+          ),
+          textAlign: TextAlign.start,
+        ),
+      ],
+    );
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const [
+        SizedBox(height: 20),
+        Text(
+          '플레이오프 계산기',
+          style: TextStyle(
+            fontSize: 36,
+            color: RED_COLOR,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        SizedBox(
+          height: 4,
+        ),
+        Text(
+          '우리팀은 가을야구를 할 수 있을까?',
+          style: TextStyle(
+            fontSize: 18,
+            color: PRIMARY_COLOR,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
     );
   }
 }
