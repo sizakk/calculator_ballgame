@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:ballgame/constant/adIDs.dart';
 import 'package:ballgame/screen/exp_result.dart';
 import 'package:flutter/material.dart';
 
@@ -17,9 +18,6 @@ class ExpRateInput extends StatefulWidget {
 }
 
 class _ExpRateInputState extends State<ExpRateInput> {
-  final String iOSTestUnitId = 'ca-app-pub-3940256099942544/2934735716';
-  final String androidTestUnitId = 'ca-app-pub-3940256099942544/6300978111';
-
   BannerAd? banner;
   late final InterstitialAd interstitialAd;
 
@@ -39,7 +37,7 @@ class _ExpRateInputState extends State<ExpRateInput> {
 
   void _loadInterstitialAd() {
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/4411468910',
+      adUnitId: Platform.isIOS ? iOSTestUnitIdInter : androidTestUnitIdInter,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {

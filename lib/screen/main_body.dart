@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ballgame/component/playoff_bottom_sheet.dart';
+import 'package:ballgame/constant/adIDs.dart';
 import 'package:ballgame/constant/color.dart';
 import 'package:ballgame/screen/exp_rate_input.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,6 @@ class MainBody extends StatefulWidget {
 }
 
 class _MainBodyState extends State<MainBody> {
-  final String iOSTestUnitId = 'ca-app-pub-3940256099942544/2934735716';
-  final String androidTestUnitId = 'ca-app-pub-3940256099942544/6300978111';
-
   late final InterstitialAd interstitialAd;
 
   BannerAd? banner;
@@ -31,25 +29,6 @@ class _MainBodyState extends State<MainBody> {
       adUnitId: Platform.isIOS ? iOSTestUnitId : androidTestUnitId,
       request: const AdRequest(),
     )..load();
-
-    _loadInterstitialAd();
-  }
-
-  void _loadInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/4411468910',
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (InterstitialAd ad) {
-          interstitialAd = ad;
-
-          _setFullScreenContentCallback(ad);
-        },
-        onAdFailedToLoad: (LoadAdError loadAdError) {
-          print('Fail to load');
-        },
-      ),
-    );
   }
 
   void _setFullScreenContentCallback(InterstitialAd ad) {
@@ -64,10 +43,6 @@ class _MainBodyState extends State<MainBody> {
       },
       onAdImpression: (InterstitialAd ad) => print('Impression Occured'),
     );
-  }
-
-  void _showInterstitialAd() {
-    interstitialAd.show();
   }
 
   @override
@@ -92,9 +67,9 @@ class _MainBodyState extends State<MainBody> {
               banner: banner,
             ),
             const _Header(),
-            const SizedBox(height: 66),
-            const _Body(),
             const SizedBox(height: 36),
+            const _Body(),
+            const SizedBox(height: 16),
             const _Footer(),
           ],
         ),

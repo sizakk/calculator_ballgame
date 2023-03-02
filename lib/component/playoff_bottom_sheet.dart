@@ -1,10 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
+import 'package:ballgame/constant/adIDs.dart';
 import 'package:ballgame/constant/team_names.dart';
 import 'package:ballgame/screen/result_playoffs.dart';
 import 'package:flutter/material.dart';
 import 'package:ballgame/component/custom_text_field.dart';
 import 'package:ballgame/constant/color.dart';
 import 'dart:math';
+
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class PlayoffBottomSheet extends StatefulWidget {
   const PlayoffBottomSheet({super.key});
@@ -21,6 +26,50 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
   int? winsNums;
   int? runScores;
   int? earendRunScores;
+
+  late final InterstitialAd interstitialAd;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadInterstitialAd();
+  }
+
+  void _loadInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: Platform.isIOS ? iOSTestUnitIdInter : androidTestUnitIdInter,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          interstitialAd = ad;
+
+          _setFullScreenContentCallback(ad);
+        },
+        onAdFailedToLoad: (LoadAdError loadAdError) {
+          print('Fail to load');
+        },
+      ),
+    );
+  }
+
+  void _setFullScreenContentCallback(InterstitialAd ad) {
+    ad.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) => print('Load Ads'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        print('Dismiss Ads');
+        ad.dispose();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+        print('Error');
+      },
+      onAdImpression: (InterstitialAd ad) => print('Impression Occured'),
+    );
+  }
+
+  void _showInterstitialAd() {
+    interstitialAd.show();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +156,8 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
+
+      _showInterstitialAd();
 
       Navigator.of(context).pop();
 
