@@ -45,21 +45,19 @@ class _ExpRateInputState extends State<ExpRateInput> {
 
           _setFullScreenContentCallback(ad);
         },
-        onAdFailedToLoad: (LoadAdError loadAdError) {
-          print('Fail to load');
-        },
+        onAdFailedToLoad: (LoadAdError loadAdError) {},
       ),
     );
   }
 
   void _setFullScreenContentCallback(InterstitialAd ad) {
     ad.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (InterstitialAd ad) => print('Load Ads'),
+      onAdShowedFullScreenContent: (InterstitialAd ad) {},
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
         // ad.dispose();
       },
       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {},
-      onAdImpression: (InterstitialAd ad) => print('Impression Occured'),
+      onAdImpression: (InterstitialAd ad) {},
     );
   }
 

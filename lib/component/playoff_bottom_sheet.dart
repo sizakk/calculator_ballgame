@@ -27,11 +27,10 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
   int? runScores;
   int? earendRunScores;
 
-  late final InterstitialAd interstitialAd;
+  InterstitialAd? interstitialAd;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _loadInterstitialAd();
   }
@@ -46,29 +45,24 @@ class _PlayoffBottomSheetState extends State<PlayoffBottomSheet> {
 
           _setFullScreenContentCallback(ad);
         },
-        onAdFailedToLoad: (LoadAdError loadAdError) {
-          print('Fail to load');
-        },
+        onAdFailedToLoad: (LoadAdError loadAdError) {},
       ),
     );
   }
 
   void _setFullScreenContentCallback(InterstitialAd ad) {
     ad.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (InterstitialAd ad) => print('Load Ads'),
+      onAdShowedFullScreenContent: (InterstitialAd ad) {},
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
-        print('Dismiss Ads');
         ad.dispose();
       },
-      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        print('Error');
-      },
-      onAdImpression: (InterstitialAd ad) => print('Impression Occured'),
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {},
+      onAdImpression: (InterstitialAd ad) => {},
     );
   }
 
   void _showInterstitialAd() {
-    interstitialAd.show();
+    interstitialAd?.show();
   }
 
   @override

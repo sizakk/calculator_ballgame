@@ -31,20 +31,6 @@ class _MainBodyState extends State<MainBody> {
     )..load();
   }
 
-  void _setFullScreenContentCallback(InterstitialAd ad) {
-    ad.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (InterstitialAd ad) => print('Load Ads'),
-      onAdDismissedFullScreenContent: (InterstitialAd ad) {
-        print('Dismiss Ads');
-        ad.dispose();
-      },
-      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        print('Error');
-      },
-      onAdImpression: (InterstitialAd ad) => print('Impression Occured'),
-    );
-  }
-
   @override
   void dispose() {
     // 종료시 광고를 닫는다.
@@ -172,7 +158,7 @@ class _Header extends StatelessWidget {
       children: const [
         SizedBox(height: 20),
         Text(
-          '플레이오프 계산기',
+          '가을야구 계산기',
           style: TextStyle(
             fontSize: 36,
             color: RED_COLOR,
@@ -217,11 +203,11 @@ ElevatedButton renderElevatedButton(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Icon(Icons.sports_baseball),
+          // Icon(Icons.sports_baseball),
           SizedBox(width: 16),
           Text(
             '플레이오프 확률',
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 22),
           ),
         ],
       ),
@@ -250,11 +236,11 @@ ElevatedButton renderElevatedButton_2(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Icon(Icons.sports_baseball_outlined),
-          SizedBox(width: 16),
+          // Icon(Icons.sports_mma),
+          SizedBox(width: 1),
           Text(
-            '팀 별 기대 승률',
-            style: TextStyle(fontSize: 20),
+            '팀 기대 승률',
+            style: TextStyle(fontSize: 22),
           ),
         ],
       ),

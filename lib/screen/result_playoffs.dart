@@ -63,7 +63,7 @@ class ResultPlayoffs extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: const [
                       Text(
-                        '# 플레이오프 계산기',
+                        '# 가을야구 계산기',
                         style: TextStyle(
                           color: RED_COLOR,
                           fontSize: 14,
@@ -74,7 +74,7 @@ class ResultPlayoffs extends StatelessWidget {
                         width: 8,
                       ),
                       Text(
-                        '# 가을야구 확률',
+                        '# 플레이오프 확률',
                         style: TextStyle(
                           color: RED_COLOR,
                           fontSize: 14,
@@ -146,17 +146,17 @@ class ResultNoError extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 16,
+            height: 26,
           ),
           Text(
             textAlign: TextAlign.center,
-            '남은 $trials 경기 플레이오프 진출 확률',
+            '남은 $trials 경기 가을야구 가능성',
             style: textStyle.copyWith(
-              fontSize: 15,
+              fontSize: 18,
             ),
           ),
           const SizedBox(
-            height: 32,
+            height: 52,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -182,8 +182,19 @@ class ResultNoError extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   color: PRIMARY_COLOR,
                 ),
-              )
+              ),
             ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          const Text(
+            '2022년 KBO 가을야구 진출팀 승리 기준',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.blueGrey,
+            ),
+            textAlign: TextAlign.start,
           ),
           // Text(
           //   playoffsRate.toString(),
@@ -191,11 +202,11 @@ class ResultNoError extends StatelessWidget {
           const SizedBox(
             height: 46,
           ),
-          Text(
-            '기대승률 ${double.parse(expP.toStringAsFixed(3)) * 100}%',
-            style: textStyle,
-            textAlign: TextAlign.center,
-          ),
+          // Text(
+          //   '기대승률 ${double.parse(expP.toStringAsFixed(3)) * 100}%',
+          //   style: textStyle,
+          //   textAlign: TextAlign.center,
+          // ),
         ],
       ),
     );

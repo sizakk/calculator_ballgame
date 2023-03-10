@@ -126,7 +126,7 @@ class ExpResult extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: const [
                     Text(
-                      '# 플레이오프 계산기',
+                      '# 가을야구 계산기',
                       style: TextStyle(
                         color: RED_COLOR,
                         fontSize: 14,
@@ -137,7 +137,7 @@ class ExpResult extends StatelessWidget {
                       width: 8,
                     ),
                     Text(
-                      '# 가을야구 확률',
+                      '# 플레이오프 확률',
                       style: TextStyle(
                         color: RED_COLOR,
                         fontSize: 14,
