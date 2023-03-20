@@ -125,7 +125,7 @@ class _ExpRateInputState extends State<ExpRateInput> {
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
+                        horizontal: 28,
                       ),
                       child: Column(
                         children: [
