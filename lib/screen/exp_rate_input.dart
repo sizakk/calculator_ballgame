@@ -326,7 +326,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '1위 득점/실점',
               ),
@@ -360,7 +360,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '2위 득점/실점',
               ),
@@ -394,7 +394,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '3위 득점/실점',
               ),
@@ -428,7 +428,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '4위 득점/실점',
               ),
@@ -462,7 +462,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '5위 득점/실점',
               ),
@@ -496,7 +496,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '6위 득점/실점',
               ),
@@ -530,7 +530,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '7위 득점/실점',
               ),
@@ -564,7 +564,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '8위 득점/실점',
               ),
@@ -598,7 +598,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '9위 득점/실점',
               ),
@@ -632,7 +632,7 @@ class _Teams10 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              width: 90,
+              width: 100,
               child: Text(
                 '10위 득점/실점',
               ),
