@@ -17,7 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+2
+version: 1.0.2+1
 
 environment:
   sdk: '>=2.18.6 <3.0.0'
@@ -75,18 +75,13 @@ flutter:
   fonts:
     - family: NotoSans
       fonts:
-        - asset: asset/fonts/NotoSansKR-Black.otf
-          weight: 900
+
         - asset: asset/fonts/NotoSansKR-Bold.otf
           weight: 700
-        - asset: asset/fonts/NotoSansKR-Medium.otf
-          weight: 500
-        - asset: asset/fonts/NotoSansKR-Regular.otf
-          weight: 400
-        - asset: asset/fonts/NotoSansKR-Light.otf
-          weight: 300
-        - asset: asset/fonts/NotoSansKR-Thin.otf
-          weight: 100
+
+        # - asset: asset/fonts/NotoSansKR-Light.otf
+        #   weight: 300
+
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

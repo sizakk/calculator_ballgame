@@ -207,7 +207,10 @@ ElevatedButton renderElevatedButton(BuildContext context) {
           SizedBox(width: 16),
           Text(
             '플레이오프 확률',
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
@@ -240,7 +243,10 @@ ElevatedButton renderElevatedButton_2(BuildContext context) {
           SizedBox(width: 1),
           Text(
             '팀 기대 승률',
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
