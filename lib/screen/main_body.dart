@@ -4,6 +4,7 @@ import 'package:ballgame/component/playoff_bottom_sheet.dart';
 import 'package:ballgame/constant/adIDs.dart';
 import 'package:ballgame/constant/color.dart';
 import 'package:ballgame/screen/exp_rate_input.dart';
+import 'package:ballgame/screen/helpe_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -143,6 +144,44 @@ class _Body extends StatelessWidget {
             color: Colors.blueGrey[300],
           ),
           textAlign: TextAlign.start,
+        ),
+        const SizedBox(
+          height: 26,
+        ),
+        Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HelpPage(),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.help),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      '기록 확인 방법',
+                      style: TextStyle(
+                        color: TEXT_COLOR,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const Text('KBO 기록실 바로가기')
+          ],
         ),
       ],
     );
