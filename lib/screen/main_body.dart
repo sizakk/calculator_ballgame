@@ -7,6 +7,7 @@ import 'package:ballgame/screen/exp_rate_input.dart';
 import 'package:ballgame/screen/helpe_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainBody extends StatefulWidget {
   const MainBody({Key? key}) : super(key: key);
@@ -123,10 +124,10 @@ class _Body extends StatelessWidget {
       children: [
         Image.asset(
           'asset/img/main_logo.png',
-          height: 200,
+          height: 180,
         ),
         const SizedBox(
-          height: 30,
+          height: 20,
         ),
         const Text(
           '득점수와 실점수는 KBO 기록실의 팀기록에서 확인하세요',
@@ -146,9 +147,10 @@ class _Body extends StatelessWidget {
           textAlign: TextAlign.start,
         ),
         const SizedBox(
-          height: 26,
+          height: 16,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             GestureDetector(
               onTap: () {
@@ -160,13 +162,16 @@ class _Body extends StatelessWidget {
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
+                padding: const EdgeInsets.only(
+                  left: 20,
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
-                    Icon(Icons.help),
+                    Icon(
+                      Icons.help,
+                      color: TEXT_COLOR,
+                    ),
                     SizedBox(
                       width: 4,
                     ),
@@ -180,7 +185,42 @@ class _Body extends StatelessWidget {
                 ),
               ),
             ),
-            const Text('KBO 기록실 바로가기')
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    final url = Uri.parse(
+                        'https://www.koreabaseball.com/Record/Player/HitterBasic/Basic1.aspx');
+                    if (await canLaunchUrl(url)) {
+                      launchUrl(url, mode: LaunchMode.externalApplication);
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      right: 20,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.info,
+                          color: TEXT_COLOR,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          'KBO 기록실 바로가기',
+                          style: TextStyle(
+                            color: TEXT_COLOR,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ],
@@ -195,7 +235,7 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
-        SizedBox(height: 20),
+        SizedBox(height: 10),
         Text(
           '가을야구 계산기',
           style: TextStyle(
